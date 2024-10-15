@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Component1 = () => {
@@ -9,7 +9,11 @@ const Component1 = () => {
   const [recipes, setRecipes] = useState([]);
   const [valid, setValid] = useState(true);
   const [loading, setLoading] = useState(false);
+  const inputRef = useRef(null);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   const searchRecipes = async () => {
     const url = `https://api.edamam.com/search?q=${searchInput}&app_id=${API_ID}&app_key=${API_KEY}`;
     setLoading(true);
@@ -21,7 +25,6 @@ const Component1 = () => {
         setValid(true);
       } else {
         console.error("invalid ingredient");
-        // setSearchInput("");
         setValid(false);
       }
     } catch (error) {
@@ -41,6 +44,7 @@ const Component1 = () => {
     <div>
       <h1>Recipe Finder</h1>
       <input
+        ref={inputRef}
         value={searchInput}
         onChange={handleInputChange}
         placeholder="Enter an ingredient"

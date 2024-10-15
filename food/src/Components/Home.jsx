@@ -10,14 +10,11 @@ const Home = () => {
 
       if (currentScroll > 50) {
         if (currentScroll > islastScrolled) {
-          // Scrolling down
           setIsScrolled(true);
         } else {
-          // Scrolling up
           setIsScrolled(false);
         }
       } else {
-        // Reset when scrolled back to the top
         setIsScrolled(false);
       }
     };
