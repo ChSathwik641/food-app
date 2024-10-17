@@ -1,20 +1,28 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
 
 const Component1 = () => {
   const API_ID = "bec85b91";
   const API_KEY = "7ebe948671fd8497ffca4276549e299f";
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [valid, setValid] = useState(true);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
 
+  const { handleSubmit, setValue, getValues, control } = useForm({
+    mode: "onSubmit",
+  });
+
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
   }, []);
-  const searchRecipes = async () => {
+
+  const searchRecipes = async (searchInput) => {
     const url = `https://api.edamam.com/search?q=${searchInput}&app_id=${API_ID}&app_key=${API_KEY}`;
     setLoading(true);
     try {
@@ -35,21 +43,39 @@ const Component1 = () => {
       setLoading(false);
     }
   };
-  const handleInputChange = (e) => {
-    setSearchInput(e.target.value);
-    setValid(true);
-    setRecipes([]);
-  };
+  // const handleInputChange = (e) => {
+  //   setSearchInput(e.target.value);
+  //   setValid(true);
+  //   setRecipes([]);
+  // };
   return (
     <div>
       <h1>Recipe Finder</h1>
-      <input
-        ref={inputRef}
-        value={searchInput}
-        onChange={handleInputChange}
-        placeholder="Enter an ingredient"
-      />
-      <button onClick={searchRecipes}>Search Recipes</button>
+      <form
+        onSubmit={handleSubmit((data) => {
+          console.log("came here", data);
+
+          searchRecipes(data.searchInput);
+        })}
+      >
+        <Controller
+          control={control}
+          name="searchInput"
+          render={() => (
+            <input
+              ref={inputRef}
+              value={getValues("searchInput")}
+              onChange={(e) => {
+                setValue("searchInput", e.target.value);
+                setValid(true);
+                setRecipes([]);
+              }}
+              placeholder="Enter an ingredient"
+            />
+          )}
+        />
+        <button onClick={handleSubmit}>Search Recipes</button>
+      </form>
       {loading && (
         <div className="d-flex justify-content-center">
           <div className="spinner-border" role="status">
