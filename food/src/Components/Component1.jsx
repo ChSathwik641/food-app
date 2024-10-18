@@ -12,7 +12,13 @@ const Component1 = () => {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
 
-  const { handleSubmit, setValue, getValues, control } = useForm({
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    control,
+    formState: { isSubmitting },
+  } = useForm({
     mode: "onSubmit",
   });
 
@@ -71,10 +77,13 @@ const Component1 = () => {
                 setRecipes([]);
               }}
               placeholder="Enter an ingredient"
+              disabled={loading}
             />
           )}
         />
-        <button onClick={handleSubmit}>Search Recipes</button>
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Searching..." : "Search"}
+        </button>
       </form>
       {loading && (
         <div className="d-flex justify-content-center">
@@ -86,8 +95,8 @@ const Component1 = () => {
 
       <div>
         {" "}
-        {!valid && searchInput && (
-          <p>Invalid ingredient {`'${searchInput}'`}</p>
+        {!valid && getValues("searchInput") && (
+          <p>Invalid ingredient {`'${getValues("searchInput")}'`}</p>
         )}
       </div>
       <div id="recipe-results">
