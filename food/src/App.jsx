@@ -16,7 +16,7 @@ function App() {
       element: <Component1 />,
     },
     {
-      path: "/component2",
+      path: "/NutritionInformation",
       element: <Component2 />,
     },
   ]);

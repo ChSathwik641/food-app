@@ -86,7 +86,7 @@ const Home = () => {
                 To explore the nutritional content of other ingredients, click
                 the button below!
               </p>{" "}
-              <Link to="/component2">
+              <Link to="/NutritionInformation">
                 <button className="btn1 btn2">
                   <i
                     className="fas fa-drumstick-bite"
