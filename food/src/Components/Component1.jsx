@@ -81,8 +81,12 @@ const Component1 = () => {
             />
           )}
         />
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Searching..." : "Search"}
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="btn btn-primary"
+        >
+          <i className="bi bi-search"></i> {loading ? "Searching..." : "Search"}
         </button>
       </form>
       {loading && (
@@ -96,7 +100,9 @@ const Component1 = () => {
       <div>
         {" "}
         {!valid && getValues("searchInput") && (
-          <p>Invalid ingredient {`'${getValues("searchInput")}'`}</p>
+          <p className="text-danger">
+            Invalid ingredient {`'${getValues("searchInput")}'`}
+          </p>
         )}
       </div>
       <div id="recipe-results">
@@ -105,7 +111,12 @@ const Component1 = () => {
             <h3>{hit.recipe.label}</h3>
             <img src={hit.recipe.image} alt={hit.recipe.label} />
             <p>Calories:{Math.round(hit.recipe.calories)}</p>
-            <a href={hit.recipe.url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={hit.recipe.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
               View Recipe
             </a>
           </div>

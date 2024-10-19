@@ -41,7 +41,7 @@ const Component2 = () => {
     }
   };
   return (
-    <div>
+    <div className="container">
       <h1>Nutrition Info</h1>
       <form
         onSubmit={handleSubmit((data) => {
@@ -65,7 +65,12 @@ const Component2 = () => {
             />
           )}
         />
-        <button onClick={handleSubmit} disabled={loading}>
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="btn btn-primary"
+        >
+          <i className="bi bi-search"></i>
           {loading ? "Searching..." : "Search"}
         </button>
       </form>
@@ -84,8 +89,8 @@ const Component2 = () => {
             {nutrition.foodNutrients &&
               nutrition.foodNutrients.map((nutrient, index) => (
                 <div key={`${nutrient.nutrientName} ${index}`}>
-                  <ul>
-                    <li>
+                  <ul className="pagination">
+                    <li className="disabled">
                       {nutrient.nutrientName} : {nutrient.value}{" "}
                       {nutrient.unitName}
                     </li>

@@ -25,7 +25,7 @@ const Home = () => {
     };
   }, [islastScrolled]);
   return (
-    <div>
+    <div className="container">
       <div className="head">
         <header className={`header ${isScrolled ? "scrolled" : ""}`}>
           <h1>TasteWise</h1>
@@ -37,8 +37,12 @@ const Home = () => {
             {" "}
             <h3>Rotisserie Chicken </h3>
           </div>
-          <div className="recipe">
-            <img src="/Chicken.jpg" alt="Chicken image" className="img1"></img>
+          <div className="container-lg recipe bg-light text-white">
+            <img
+              src="/Chicken.jpg"
+              alt="Chicken image"
+              className="img1 img-thumbnail"
+            ></img>
             <div className="p">
               <p>
                 You can easily create a mouthwatering Rotisserie Chicken right
@@ -99,7 +103,7 @@ const Home = () => {
             <img
               src="/nutritionfacts.jpg"
               alt="Chicken image"
-              className="img1 img2"
+              className="img1 img2 img-thumbnail-fluid"
             ></img>
           </div>
         </div>
