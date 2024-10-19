@@ -1,24 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-/* body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
 
 h1 {
   font-family: "Playwrite Deutschland Grundschrift", "sans-serif";
   font-size: 60px;
   font-weight: 800;
   text-shadow: 0.5px 0.5px 0px black;
-  transform: rotate(-0deg);
+  transform: rotate(0deg);
 }
 
 .head {
@@ -26,8 +18,6 @@ h1 {
   display: flex;
   position: relative;
   transition: 0.6s ease;
-  /* justify-content: center;
-  align-items: center; */
 }
 
 header {
@@ -45,60 +35,87 @@ header {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
-.food {
+.food,
+.reciepe1 {
   margin: 120px 20px 0;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
 }
 
-.h3 {
+.h3,
+.heading3 {
   color: #d76e3b;
   font-size: 2rem;
-  margin-top: 120px;
-  text-shadow: 1px 1px 0px black, -1px -1px 0px black, 1px -1px 0px black,
-    -1px 1px 0px black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-  margin-left: 5rem;
-}
-.food {
-  margin-right: 20px;
+  margin: 20px 0;
+  text-align: center;
 }
 
-.img1 {
+.recipe,
+.reciepe1 {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.reciepe1 {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 30px;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.p {
+  text-align: justify;
+  line-height: 1.6;
+  margin: 20px 0;
+  font-size: 1rem;
+  color: #7c1e1e;
+}
+
+.img1,
+.img2 {
   box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.6);
   margin: 20px;
   border-radius: 10px;
   transition: transform 0.6s ease;
   cursor: pointer;
+  max-width: 100%;
+}
+
+.img2 {
+  max-width: 40%;
+  height: auto;
+  margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.6s ease;
 }
 
 .img1:hover {
   transform: scale(1.1);
 }
 
-.p {
-  text-align: justify;
+.img2:hover {
+  transform: scale(1.05);
+}
+
+.p1 {
+  flex: 1;
+  margin: 0;
+  color: #167016;
   line-height: 1.6;
-  margin: 40px 0 30px;
   font-size: 1.2rem;
-  color: #7c1e1e;
 }
-
-.recipe {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  width: 80%;
-  margin-left: auto;
-  margin-top: 30px;
-}
-
-.btn1 {
+.btn1,
+.btn2 {
   padding: 10px 15px;
   margin-top: 10px;
   cursor: pointer;
@@ -110,34 +127,10 @@ header {
   border: 2px solid #ffd700;
 }
 
-.btn1:hover {
+.btn1:hover,
+.btn2:hover {
   background-color: #ffd700;
   color: black;
-}
-
-.heading3 {
-  color: #2e8b57;
-  justify-content: center;
-}
-
-.img2 {
-  max-height: 300px;
-}
-
-.img2:hover {
-  transform: scale(1.1);
-}
-
-.p1 {
-  margin: 40px 0 0 30px;
-  color: #167016;
-}
-
-.reciepe1 {
-  padding: 30px;
-  justify-content: left;
-  margin-right: auto;
-  margin-left: 20px;
 }
 
 .btn2 {
@@ -148,4 +141,58 @@ header {
   background-color: #98ff98;
   color: black;
   border: 2px solid black;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 45px;
+  }
+
+  .food,
+  .reciepe1 {
+    flex-direction: column;
+    margin: 100px 10px 0;
+  }
+
+  .recipe,
+  .reciepe1 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .h3 {
+    font-size: 1.5rem;
+  }
+
+  .p {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+
+  .btn1,
+  .btn2 {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 35px;
+  }
+
+  .h3 {
+    font-size: 1.2rem;
+  }
+
+  .p {
+    font-size: 0.9rem;
+  }
+
+  .btn1,
+  .btn2 {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }

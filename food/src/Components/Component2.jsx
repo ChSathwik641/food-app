@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import "./Component2.css";
 
 const Component2 = () => {
   const API_KEY = "KBpKW8Z6tRTW4kIt8kQv8EYI6QeADIcwaQsfqyO0";
@@ -13,12 +14,14 @@ const Component2 = () => {
   const { handleSubmit, getValues, setValue, control } = useForm({
     mode: "onSubmit",
   });
+
   useEffect(() => {
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
-  const searchNutrion = async (searchInput) => {
+
+  const searchNutrition = async (searchInput) => {
     setError(null);
     setNutrition(null);
     const url = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(
@@ -34,19 +37,21 @@ const Component2 = () => {
         setError("No data was found for this food item.");
       }
     } catch (error) {
-      console.error("Error in fetching nutrion", error);
+      console.error("Error in fetching nutrition", error);
       setError("Error fetching data");
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <div className="container">
-      <h1>Nutrition Info</h1>
+    <div className="nutrition-container">
+      <h1 className="nutrition-title">Nutrition Information</h1>
       <form
+        className="nutrition-form"
         onSubmit={handleSubmit((data) => {
-          console.log("came here", data);
-          searchNutrion(data.searchInput);
+          console.log("Form submitted: ", data);
+          searchNutrition(data.searchInput);
         })}
       >
         <Controller
@@ -54,6 +59,7 @@ const Component2 = () => {
           name="searchInput"
           render={() => (
             <input
+              className="nutrition-input"
               value={getValues("searchInput")}
               onChange={(e) => {
                 setValue("searchInput", e.target.value);
@@ -65,17 +71,13 @@ const Component2 = () => {
             />
           )}
         />
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="btn btn-primary"
-        >
+        <button type="submit" disabled={loading} className="nutrition-button">
           <i className="bi bi-search"></i>
           {loading ? "Searching..." : "Search"}
         </button>
       </form>
       {loading && (
-        <div className="d-flex justify-content-center">
+        <div className="loading-spinner">
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -83,15 +85,15 @@ const Component2 = () => {
       )}
 
       {nutrition && (
-        <div>
-          <h3>{nutrition.description}</h3>
-          <div>
+        <div className="nutrition-info">
+          <h3 className="nutrition-description">{nutrition.description}</h3>
+          <div className="nutrition-nutrients">
             {nutrition.foodNutrients &&
               nutrition.foodNutrients.map((nutrient, index) => (
                 <div key={`${nutrient.nutrientName} ${index}`}>
-                  <ul className="pagination">
-                    <li className="disabled">
-                      {nutrient.nutrientName} : {nutrient.value}{" "}
+                  <ul className="nutrient-list">
+                    <li className="nutrient-item">
+                      {nutrient.nutrientName}: {nutrient.value}{" "}
                       {nutrient.unitName}
                     </li>
                   </ul>
@@ -100,11 +102,9 @@ const Component2 = () => {
           </div>
         </div>
       )}
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <Link to="/">
-        {" "}
-        {/* Link to go back to default app */}
-        <button>Go to Default App</button>
+        <button className="back-button">Home</button>
       </Link>
     </div>
   );

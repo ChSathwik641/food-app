@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import "./Component1.css";
 
 const Component1 = () => {
   const API_ID = "bec85b91";
   const API_KEY = "7ebe948671fd8497ffca4276549e299f";
-  // const [searchInput, setSearchInput] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [valid, setValid] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -49,46 +49,45 @@ const Component1 = () => {
       setLoading(false);
     }
   };
-  // const handleInputChange = (e) => {
-  //   setSearchInput(e.target.value);
-  //   setValid(true);
-  //   setRecipes([]);
-  // };
-  return (
-    <div>
-      <h1>Recipe Finder</h1>
-      <form
-        onSubmit={handleSubmit((data) => {
-          console.log("came here", data);
 
-          searchRecipes(data.searchInput);
-        })}
-      >
-        <Controller
-          control={control}
-          name="searchInput"
-          render={() => (
-            <input
-              ref={inputRef}
-              value={getValues("searchInput")}
-              onChange={(e) => {
-                setValue("searchInput", e.target.value);
-                setValid(true);
-                setRecipes([]);
-              }}
-              placeholder="Enter an ingredient"
-              disabled={loading}
-            />
-          )}
-        />
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="btn btn-primary"
+  return (
+    <div className="container-recipe-finder">
+      <h1 className="recipe-finder-title">Recipe Finder</h1>
+      <div className="d-inline-flex p-2">
+        <form
+          onSubmit={handleSubmit((data) => {
+            console.log("came here", data);
+            searchRecipes(data.searchInput);
+          })}
         >
-          <i className="bi bi-search"></i> {loading ? "Searching..." : "Search"}
-        </button>
-      </form>
+          <Controller
+            control={control}
+            name="searchInput"
+            render={() => (
+              <input
+                ref={inputRef}
+                value={getValues("searchInput")}
+                onChange={(e) => {
+                  setValue("searchInput", e.target.value);
+                  setValid(true);
+                  setRecipes([]);
+                }}
+                placeholder="Enter an ingredient"
+                disabled={loading}
+                className="input-recipe"
+              />
+            )}
+          />
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="btn-recipe-search"
+          >
+            <i className="bi bi-search"></i>{" "}
+            {loading ? "Searching..." : "Search"}
+          </button>
+        </form>
+      </div>
       {loading && (
         <div className="d-flex justify-content-center">
           <div className="spinner-border" role="status">
@@ -98,24 +97,27 @@ const Component1 = () => {
       )}
 
       <div>
-        {" "}
         {!valid && getValues("searchInput") && (
           <p className="text-danger">
             Invalid ingredient {`'${getValues("searchInput")}'`}
           </p>
         )}
       </div>
-      <div id="recipe-results">
+      <div id="recipe-results-finder">
         {recipes.map((hit, index) => (
-          <div key={index} className="">
-            <h3>{hit.recipe.label}</h3>
-            <img src={hit.recipe.image} alt={hit.recipe.label} />
-            <p>Calories:{Math.round(hit.recipe.calories)}</p>
+          <div key={index} className="recipe-card">
+            <h3 className="recipe-label">{hit.recipe.label}</h3>
+            <img
+              src={hit.recipe.image}
+              alt={hit.recipe.label}
+              className="recipe-image"
+            />
+            <p>Calories: {Math.round(hit.recipe.calories)}</p>
             <a
               href={hit.recipe.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary"
+              className="btn-recipe-link"
             >
               View Recipe
             </a>
@@ -124,7 +126,7 @@ const Component1 = () => {
       </div>
 
       <Link to="/">
-        <button>Go to Default App</button>
+        <button className="btn-go-home">Home</button>
       </Link>
     </div>
   );
